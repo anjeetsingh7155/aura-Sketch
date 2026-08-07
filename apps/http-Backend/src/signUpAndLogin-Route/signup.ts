@@ -23,6 +23,7 @@ export const signup = async (req: Request, res: Response) => {
   const { userName, Name, Email, password } = resultObj.data;
 
   const hashpass = await bcrypt.hash(password, 10);
+
   console.log(userName, Name, Email, hashpass);
 
   //write the database logic here and the whole further logic
