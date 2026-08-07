@@ -15,9 +15,8 @@ app.use(express.json());
 app.post("/v1/signup", signup);
 app.post("/v1/login", login);
 
-
 //Room Routes
-app.post('/v2/createRoom',userMiddleWare,createRoom)
+app.post("/v2/createRoom", userMiddleWare, createRoom);
 
 app.listen(port, () => {
   console.log(`Http server is running on the http://localhost:${port}`);

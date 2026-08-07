@@ -8,7 +8,7 @@ dotenv.config({
 
 export const login = (req: Request, res: Response) => {
   const jwtPass = process.env.UserJWTPAss;
-console.log(jwtPass)
+
   if (!jwtPass) {
     res.status(500).json({ error: "JWT secret not set" });
     return;
@@ -16,10 +16,9 @@ console.log(jwtPass)
 
   const userName = "AnjeetSingh";
   const password = "Anjeet";
-const user = {
-    _id : "2"
-}//database logic to find the user 
-
+  const user = {
+    _id: "2",
+  }; //database logic to find the user
 
   const token = jwt.sign(
     {

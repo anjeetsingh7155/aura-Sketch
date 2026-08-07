@@ -6,17 +6,20 @@ dotenv.config({
 });
 
 //This is to resolve the error of JWT userID and req.userID
-interface MyjwtPayload extends JwtPayload{
-    userID? : string
+interface MyjwtPayload extends JwtPayload {
+  userID?: string;
 }
 
-interface MyRequest extends Request{
-    userID? : string
+interface MyRequest extends Request {
+  userID?: string;
 }
-
 
 //this is the middleware
-export const userMiddleWare = (req: MyRequest , res: Response, next: NextFunction) => {
+export const userMiddleWare = (
+  req: MyRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   const jwtPass = process.env.UserJWTPAss;
   const token = req.headers["authorization"];
 
@@ -32,7 +35,7 @@ export const userMiddleWare = (req: MyRequest , res: Response, next: NextFunctio
 
   try {
     const decodeData = jwt.verify(token, jwtPass) as MyjwtPayload;
-    req.userID = decodeData.userID
+    req.userID = decodeData.userID;
     next();
   } catch (e: any) {
     res.status(401).json({
