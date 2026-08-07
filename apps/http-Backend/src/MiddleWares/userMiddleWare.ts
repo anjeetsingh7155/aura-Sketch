@@ -1,7 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config({
+  path: "../../.env",
+});
 
 //This is to resolve the error of JWT userID and req.userID
 interface MyjwtPayload extends JwtPayload{

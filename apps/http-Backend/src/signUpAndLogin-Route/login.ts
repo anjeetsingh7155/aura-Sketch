@@ -1,11 +1,14 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-dotenv.config();
+
+dotenv.config({
+  path: "../../.env",
+});
 
 export const login = (req: Request, res: Response) => {
   const jwtPass = process.env.UserJWTPAss;
-
+console.log(jwtPass)
   if (!jwtPass) {
     res.status(500).json({ error: "JWT secret not set" });
     return;
