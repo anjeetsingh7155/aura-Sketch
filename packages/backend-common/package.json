@@ -1,5 +1,5 @@
 {
-  "name": "wss-backend",
+  "name": "@repo/backend-common",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,20 +9,16 @@
     "dev": "tsc -b && node ./dist/index.js",
     "start": "node ./dist/index.js"
   },
-  "dependencies": {
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/ws": "^8.18.1",
-    "jsonwebtoken": "^9.0.3",
-    "ws": "^8.21.2"
+  "exports": {
+    "./config": "./src/index.ts"
   },
-
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
-    "@repo/backend-common" :"workspace:*"
+    "@repo/typescript-config": "workspace:*"
   },
-
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
 }

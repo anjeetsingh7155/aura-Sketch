@@ -10,7 +10,6 @@
     "start": "node ./dist/index.js"
   },
   "dependencies": {
-    "@repo/typescript-config": "workspace:*",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
@@ -21,6 +20,11 @@
     "jsonwebtoken": "^9.0.3",
     "zod": "^4.4.3"
   },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@repo/backend-common" :"workspace:*"
+  },
+
   "keywords": [],
   "author": "",
   "license": "ISC",

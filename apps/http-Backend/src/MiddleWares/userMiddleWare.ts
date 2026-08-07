@@ -1,9 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import dotenv from "dotenv";
-dotenv.config({
-  path: "../../.env",
-});
+import { User_JWT_pass } from "@repo/backend-common/config";
 
 //This is to resolve the error of JWT userID and req.userID
 interface MyjwtPayload extends JwtPayload {
@@ -20,10 +17,9 @@ export const userMiddleWare = (
   res: Response,
   next: NextFunction,
 ) => {
-  const jwtPass = process.env.UserJWTPAss;
   const token = req.headers["authorization"];
 
-  if (!jwtPass) {
+  if (!User_JWT_pass) {
     return res.status(401).json({
       message: "JWTPAss is invalid or undefined",
     });
@@ -34,7 +30,7 @@ export const userMiddleWare = (
   }
 
   try {
-    const decodeData = jwt.verify(token, jwtPass) as MyjwtPayload;
+    const decodeData = jwt.verify(token, User_JWT_pass) as MyjwtPayload;
     req.userID = decodeData.userID;
     next();
   } catch (e: any) {

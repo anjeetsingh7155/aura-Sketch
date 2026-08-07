@@ -1,13 +1,6 @@
 import { WebSocketServer } from "ws";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import dotenv from "dotenv";
-dotenv.config({
-  path: "../../.env",
-});
-
-
-const userJWTpass = process.env.UserJWTPAss;
-
+import { User_JWT_pass } from "@repo/backend-common/config";
 const wss = new WebSocketServer({ port: 8080 });
 
 wss.on("connection", (socket, req) => {
@@ -24,10 +17,10 @@ wss.on("connection", (socket, req) => {
     return;
   }
 
-  if (!userJWTpass) {
+  if (!User_JWT_pass) {
     throw new Error("UserJWTPAss is missing");
   }
-  const decoded = jwt.verify(token, userJWTpass);
+  const decoded = jwt.verify(token, User_JWT_pass);
 
   socket.on("message", () => {
     console.log(token);
