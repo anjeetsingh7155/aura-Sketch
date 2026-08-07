@@ -1,16 +1,28 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const login = (req: Request, res: Response) => {
-  const userID = 1;
-  const userName = "Anjeet";
+  const jwtPass = process.env.UserJWTPAss;
+
+  if (!jwtPass) {
+    res.status(500).json({ error: "JWT secret not set" });
+    return;
+  }
+
+  const userName = "AnjeetSingh";
+  const password = "Anjeet";
+const user = {
+    _id : "2"
+}//database logic to find the user 
+
 
   const token = jwt.sign(
     {
-      userID: userID,
-      userName: userName,
+      userID: user._id,
     },
-    "ahdajhdiugdieuhdhdisdhdsiuhdshdishdishdisuhdis",
+    jwtPass,
   );
 
   console.log(token);
