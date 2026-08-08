@@ -1,9 +1,6 @@
 import dotenv from "dotenv";
 
-dotenv.config(/*{
-  path: "../../.env",
-}*/);
+dotenv.config();
 
-export const User_JWT_pass = process.env.UserJWTPAss;
+export const User_JWT_pass = process.env.UserJWTPAss || "adgsjdieugde7gfuiewgfeuwgfeuwygfeuygfeuwygte8tr394732";
 
-console.log(User_JWT_pass);

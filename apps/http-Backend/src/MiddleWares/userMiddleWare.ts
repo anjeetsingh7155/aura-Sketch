@@ -1,15 +1,9 @@
-import { NextFunction, Request, Response } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import { User_JWT_pass } from "@repo/backend-common/config";
+import { NextFunction, Response } from "express";
+import jwt from "jsonwebtoken";
+import {User_JWT_pass} from "@repo/backend-common/config";
+import {MyRequest,MyjwtPayload } from "@repo/typesAndvalidations-common/typesandzodvalidation"
 
-//This is to resolve the error of JWT userID and req.userID
-interface MyjwtPayload extends JwtPayload {
-  userID?: string;
-}
 
-interface MyRequest extends Request {
-  userID?: string;
-}
 
 //this is the middleware
 export const userMiddleWare = (
@@ -17,9 +11,10 @@ export const userMiddleWare = (
   res: Response,
   next: NextFunction,
 ) => {
+  const jwtPass = User_JWT_pass
   const token = req.headers["authorization"];
 
-  if (!User_JWT_pass) {
+  if (!jwtPass && typeof jwtPass !=="string") {
     return res.status(401).json({
       message: "JWTPAss is invalid or undefined",
     });
@@ -30,7 +25,7 @@ export const userMiddleWare = (
   }
 
   try {
-    const decodeData = jwt.verify(token, User_JWT_pass) as MyjwtPayload;
+    const decodeData = jwt.verify(token, jwtPass) as MyjwtPayload;
     req.userID = decodeData.userID;
     next();
   } catch (e: any) {

@@ -1,11 +1,17 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { User_JWT_pass } from "@repo/backend-common/config";
+
+
+
+
+
 export const login = (req: Request, res: Response) => {
-  if (!User_JWT_pass) {
-    res.status(500).json({ error: "JWT secret not set" });
-    return;
-  }
+  const jwtPass = User_JWT_pass 
+  if (!jwtPass && typeof jwtPass !=="string") {
+    return res.status(401).json({
+      message: "JWTPAss is invalid or undefined",
+    })};
 
   const userName = "AnjeetSingh";
   const password = "Anjeet";
@@ -17,7 +23,7 @@ export const login = (req: Request, res: Response) => {
     {
       userID: user._id,
     },
-    User_JWT_pass,
+    jwtPass,
   );
 
   res.status(200).json(token);
