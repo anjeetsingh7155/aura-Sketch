@@ -20,5 +20,5 @@ export const login = (req: Request, res: Response) => {
     User_JWT_pass,
   );
 
-  console.log(token);
+  res.status(200).json(token);
 };
