@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import {userZodvalidation} from '@repo/typesAndvalidations-common/typesandzodvalidation'
+import { userZodvalidation } from "@repo/typesAndvalidations-common/typesandzodvalidation";
 
 export const signup = async (req: Request, res: Response) => {
-
   const resultObj = userZodvalidation.safeParse(req.body);
 
   if (!resultObj.success) {

@@ -1,20 +1,24 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { User_JWT_pass } from "@repo/backend-common/config";
-
-
-
-
+import { loginSchema } from "@repo/typesAndvalidations-common/typesandzodvalidation";
 
 export const login = (req: Request, res: Response) => {
-  const jwtPass = User_JWT_pass 
-  if (!jwtPass && typeof jwtPass !=="string") {
+  const jwtPass = User_JWT_pass;
+  if (!jwtPass && typeof jwtPass !== "string") {
     return res.status(401).json({
       message: "JWTPAss is invalid or undefined",
-    })};
+    });
+  }
+  const safeParseObject = loginSchema.safeParse(req.body);
 
-  const userName = "AnjeetSingh";
-  const password = "Anjeet";
+  if (!safeParseObject.success) {
+    res.status(401).json({
+      message: "Invalid UserName and Password",
+    });
+  }
+  const userName = safeParseObject.data?.userName;
+  const password = safeParseObject.data?.password;
   const user = {
     _id: "2",
   }; //database logic to find the user
