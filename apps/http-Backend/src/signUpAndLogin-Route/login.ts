@@ -5,6 +5,7 @@ import { loginSchema } from "@repo/typesAndvalidations-common/typesandzodvalidat
 
 export const login = (req: Request, res: Response) => {
   const jwtPass = User_JWT_pass;
+  console.log(jwtPass);
   if (!jwtPass && typeof jwtPass !== "string") {
     return res.status(401).json({
       message: "JWTPAss is invalid or undefined",
@@ -30,5 +31,7 @@ export const login = (req: Request, res: Response) => {
     jwtPass,
   );
 
-  res.status(200).json(token);
+  res.status(200).json({
+    token: token,
+  });
 };

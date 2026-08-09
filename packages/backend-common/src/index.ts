@@ -4,4 +4,4 @@ dotenv.config();
 
 export const User_JWT_pass =
   process.env.UserJWTPAss ||
-  "adgsjdieugde7gfuiewgfeuwgfeuwygfeuygfeuwygte8tr394732";
+  "jcbsgcsuyygtc8ds66ttstxusagcjsagcjhsgcjhgcjhhsgcsa";
