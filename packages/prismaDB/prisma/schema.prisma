@@ -12,14 +12,31 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  userName  String
+  password  String   @unique
+  photo     String
+  createdAt DateTime @default(now())
+  Room      Room[]
+  chat      chat[]
+}
 
+model Room {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique
+  adminID   String
+  admin     User     @relation(fields: [adminID], references: [id])
+  createdAt DateTime @default(now())
+  chat      chat[]
+}
 
-
-model User { 
-  id    Int     @id @default(autoincrement())
-  email String  @unique 
- name  String 
- userName String
- password  String @unique 
-
+model chat {
+  id     String @id @default(uuid())
+  userID String
+  user   User   @relation(fields: [userID], references: [id])
+  RoomID Int
+  Room   Room   @relation(fields: [RoomID], references: [id])
 }
