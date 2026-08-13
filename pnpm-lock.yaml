@@ -52,6 +52,9 @@ importers:
       '@repo/backend-common':
         specifier: workspace:*
         version: link:../../packages/backend-common
+      '@repo/prismadb':
+        specifier: workspace:*
+        version: link:../../packages/prismaDB
       '@repo/typesAndvalidations-common':
         specifier: workspace:*
         version: link:../../packages/typesAndvalidations-common

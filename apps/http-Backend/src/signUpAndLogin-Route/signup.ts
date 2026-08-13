@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { userZodvalidation } from "@repo/typesAndvalidations-common/typesandzodvalidation";
+import { prisma } from "@repo/prismadb/db";
 
 export const signup = async (req: Request, res: Response) => {
   const resultObj = userZodvalidation.safeParse(req.body);
@@ -14,8 +15,30 @@ export const signup = async (req: Request, res: Response) => {
   const { userName, Name, Email, password } = resultObj.data;
 
   const hashpass = await bcrypt.hash(password, 10);
+try{
 
-  console.log(userName, Name, Email, hashpass);
+    const userRegister = await prisma.user.create({
+    data: {
+      userName: userName,
+      password: hashpass,
+      email: Email,
+      name: Name,
+      photo: "NOtFound",
+    },
+  });
 
-  //write the database logic here and the whole further logic
+  console.log(userRegister);
+
+  res.status(200).json({
+    message : "User Registered"
+  })
+
+}catch(e){
+   res.status(401).json({
+    message : "The user is already Exists",
+    error : e
+
+  })
+}
+
 };

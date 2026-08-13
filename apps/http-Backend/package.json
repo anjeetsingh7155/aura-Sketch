@@ -22,7 +22,8 @@
   "devDependencies": {
     "@repo/backend-common": "workspace:*",
     "@repo/typesAndvalidations-common": "workspace:*",
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "@repo/prismadb" : "workspace:*"
   },
   "keywords": [],
   "author": "",

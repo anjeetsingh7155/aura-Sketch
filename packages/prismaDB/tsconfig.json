@@ -1,17 +1,17 @@
+// packages/prismaDB/tsconfig.json
 {
-  "extends": "../typescript-config/base.json",
+  "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
-    "rootDir": ".",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2023",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "outDir": "dist",
-    "types": ["node"]
+    "rootDir": ".",
+    "declaration": true
   },
-"include": [
-  "src/**/*.ts",
-  "generated/**/*.ts"
-],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "generated"
-  ]
+  "include": ["src/**/*.ts", "generated/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }
