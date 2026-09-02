@@ -14,7 +14,7 @@ export const userZodvalidation = z.object({
 
 //this is for the login
 export const loginSchema = z.object({
-  userName: z.string().min(5).max(10),
+   Email : z.email(),
   password: z
     .string()
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{10,}$/),

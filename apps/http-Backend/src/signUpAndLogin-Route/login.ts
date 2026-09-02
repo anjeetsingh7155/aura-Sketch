@@ -2,10 +2,12 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { User_JWT_pass } from "@repo/backend-common/config";
 import { loginSchema } from "@repo/typesAndvalidations-common/typesandzodvalidation";
+import { prisma } from "@repo/prismadb";
 
-export const login = (req: Request, res: Response) => {
-  
-  console.log(User_JWT_pass);
+export const login = async (req: Request, res: Response) => {
+  try {
+    
+      console.log(User_JWT_pass);
   if (!User_JWT_pass && typeof User_JWT_pass !== "string") {
     return res.status(401).json({
       message: "JWTPAss is invalid or undefined",
@@ -14,24 +16,42 @@ export const login = (req: Request, res: Response) => {
   const safeParseObject = loginSchema.safeParse(req.body);
 
   if (!safeParseObject.success) {
-    res.status(401).json({
+    return res.status(401).json({
       message: "Invalid UserName and Password",
     });
   }
-  const userName = safeParseObject.data?.userName;
+  const Email = safeParseObject.data?.Email;
   const password = safeParseObject.data?.password;
-  const user = {
-    _id: "2",
-  }; //database logic to find the user
+  const userLogin = await prisma.user.findUnique({
+  where: {
+    email: Email,
+    password : password
+  },
+});
+console.log(userLogin)
+  
 
+if (userLogin == null){
+  return res.status(401).json({
+    message : "invalid Username and Password"
+  })
+}
   const token = jwt.sign(
     {
-      userID: user._id,
+      userID: userLogin.id,
     },
     User_JWT_pass,
   );
 
-  res.status(200).json({
+  return res.status(200).json({
     token: token,
   });
+
+  } catch (error) {
+    return res.status(500).json({
+      message : "Internal Server Error"
+    })
+  }
+  
+
 };
